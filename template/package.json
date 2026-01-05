@@ -1,0 +1,92 @@
+{
+  "name": "yxuer-pc-vue",
+  "author": "王俊杰",
+  "email": "1768669274@qq.com",
+  "version": "1.0.2",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "scripts": {
+    "dev:local": "npx only-allow pnpm && vite --mode devlocal",
+    "dev:master": "npx only-allow pnpm && vite --mode devmaster",
+    "dev:tencentCloud": "npx only-allow pnpm && vite --mode devtencentCloud",
+    "build:master": "npx only-allow pnpm && vite build --mode prodmaster",
+    "build:tencentCloud": "npx only-allow pnpm && vite build --mode prodtencentCloud",
+    "report:master": "npx only-allow pnpm && rimraf dist && cross-env ANALYZE=true vite build --mode prodmaster",
+    "report:tencentCloud": "npx only-allow pnpm && rimraf dist && cross-env ANALYZE=true vite build --mode prodtencentCloud",
+    "type-check": "vue-tsc --build",
+    "lint": "eslint . --fix --cache",
+    "format": "prettier --write src/",
+    "preinstall": "npx only-allow pnpm",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@ant-design/icons-vue": "^7.0.1",
+    "aieditor": "^1.4.1",
+    "ant-design-vue": "~4.2.6",
+    "axios": "^1.12.2",
+    "dayjs": "^1.11.18",
+    "pinia": "^3.0.3",
+    "vue": "^3.5.22",
+    "vue-router": "^4.6.3"
+  },
+  "devDependencies": {
+    "@tsconfig/node22": "^22.0.2",
+    "@types/node": "^22.18.11",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vue/eslint-config-prettier": "^10.2.0",
+    "@vue/eslint-config-typescript": "^14.6.0",
+    "@vue/tsconfig": "^0.8.1",
+    "cross-env": "^10.1.0",
+    "eslint": "^9.37.0",
+    "eslint-plugin-vue": "~10.5.0",
+    "husky": "^9.1.7",
+    "jiti": "^2.6.1",
+    "lint-staged": "^16.2.7",
+    "npm-run-all2": "^8.0.4",
+    "prettier": "3.6.2",
+    "rimraf": "^6.0.1",
+    "rollup-plugin-visualizer": "^6.0.5",
+    "sass-embedded": "^1.93.2",
+    "typescript": "~5.9.0",
+    "vite": "^7.1.11",
+    "vite-plugin-remove-console": "^2.2.0",
+    "vite-plugin-top-level-await": "^1.6.0",
+    "vite-plugin-vue-devtools": "^8.0.3",
+    "vue-tsc": "^3.1.1"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "jsxSingleQuote": true,
+    "experimentalTernaries": true,
+    "bracketSameLine": true,
+    "overrides": [
+      {
+        "files": "*.jsonc",
+        "options": {
+          "trailingComma": "none"
+        }
+      },
+      {
+        "files": "*.json",
+        "options": {
+          "trailingComma": "none"
+        }
+      }
+    ]
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,vue}": [
+      "eslint --fix --cache",
+      "prettier --write"
+    ],
+    "*.{css,scss,json,md}": [
+      "prettier --write"
+    ]
+  }
+}

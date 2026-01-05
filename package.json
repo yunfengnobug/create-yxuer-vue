@@ -1,0 +1,57 @@
+{
+  "name": "create-yxuer-vue",
+  "version": "1.0.3",
+  "description": "基于 Vue3 + TypeScript + Vite + Ant Design Vue 的企业级前端脚手架工具",
+  "type": "module",
+  "author": "王俊杰 <1768669274@qq.com>",
+  "license": "MIT",
+  "keywords": [
+    "vue3",
+    "vue",
+    "typescript",
+    "vite",
+    "ant-design-vue",
+    "scaffold",
+    "template",
+    "cli",
+    "create-app",
+    "starter",
+    "boilerplate",
+    "企业级",
+    "前端框架"
+  ],
+  "bin": {
+    "create-yxuer-vue": "bin/index.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "template"
+  ],
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "scripts": {
+    "dev": "node bin/index.js",
+    "build": "echo 'No build step required'",
+    "test": "node bin/index.js test-project",
+    "prepublishOnly": "echo '准备发布到 npm...'"
+  },
+  "dependencies": {
+    "prompts": "^2.4.2",
+    "kolorist": "^1.8.0",
+    "minimist": "^1.2.8"
+  },
+  "devDependencies": {
+    "@types/minimist": "^1.2.5",
+    "@types/prompts": "^2.4.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/create-yxuer-vue.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/create-yxuer-vue/issues"
+  },
+  "homepage": "https://github.com/your-username/create-yxuer-vue#readme"
+}

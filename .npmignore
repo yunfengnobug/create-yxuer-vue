@@ -1,0 +1,35 @@
+# 开发和测试相关
+node_modules/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 编辑器目录和文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# 测试目录
+test-project/
+tests/
+__tests__/
+
+# 文档
+docs/
+
+# Git
+.git/
+.gitignore
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+
+# 其他
+*.md
+!README.md
