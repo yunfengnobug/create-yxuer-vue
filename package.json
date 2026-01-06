@@ -1,6 +1,6 @@
 {
   "name": "create-yxuer-vue",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "基于 Vue3 + TypeScript + Vite + Ant Design Vue 的企业级前端脚手架工具",
   "type": "module",
   "author": "王俊杰 <1768669274@qq.com>",
