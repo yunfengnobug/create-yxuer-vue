@@ -11,10 +11,10 @@
 npm create yxuer-vue@latest my-app
 
 # 使用 pnpm（推荐）
-pnpm create yxuer-vue my-app
+pnpm create yxuer-vue@latest my-app
 
 # 使用 yarn
-yarn create yxuer-vue my-app
+yarn create yxuer-vue@latest my-app
 ```
 
 ## 📝 第二步：回答配置问题
@@ -106,14 +106,17 @@ pnpm report:master      # 打包分析
 ## 💡 下一步
 
 1. **配置路由权限**
+
    - 在后台配置菜单权限
    - URL 中添加 `menuId` 参数
 
 2. **开发第一个页面**
+
    - 在 `src/views/` 创建页面组件
    - 在 VSCode 中输入 `vue3` 快速生成模板
 
 3. **调用后端接口**
+
    - 在 `src/api/` 定义接口
    - 使用 `src/utils/request.ts` 发起请求
 
