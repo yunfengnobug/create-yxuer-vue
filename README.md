@@ -13,7 +13,7 @@
 - 📦 **Pinia** - 轻量级状态管理
 - 🛣️ **Vue Router 4** - 支持 Hash 和 History 模式
 - 🔧 **多环境配置** - 本地、测试、生产环境完整支持
-- 📝 **代码规范** - ESLint + Prettier + Husky
+- 📝 **代码规范** - oxlint + oxfmt + Husky
 - 🎯 **开箱即用** - 预置常用工具和配置
 
 ## 📦 内置功能

@@ -18,7 +18,7 @@
 - 七牛文件上传【@/utils/upload.ts】
 - aieditor 富文本组件 【@/components/BaseEditor.vue】,不需要或使用其他富文本组件可删除
 - ant-design-vue 的引入
-- eslint和prettier
+- oxlint 和 oxfmt
 - visualizer 插件，用于开发时性能分析（pnpm report:master）
 - 移除vue默认的初始文件和页面，新增reset.css
 - 样式默认为 scss 的 vue 文件生成模板，在.vue文件中打出 'vue3' 即可生成（vscode编辑器可用）
