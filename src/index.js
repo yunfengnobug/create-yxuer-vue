@@ -433,6 +433,14 @@ async function init() {
     write(file)
   }
 
+  // ============================= 写入 .npmrc =============================
+  // npm 发布时会自动排除 .npmrc，故发布后的包里没有此文件，需在脚手架中显式写入
+  const npmrcPath = path.join(templateDir, '.npmrc')
+  const npmrcContent = fs.existsSync(npmrcPath)
+    ? fs.readFileSync(npmrcPath, 'utf-8')
+    : 'engine-strict=true\n'
+  fs.writeFileSync(path.join(root, '.npmrc'), npmrcContent)
+
   // ============================= 处理 package.json =============================
   try {
     // 读取模板中的 package.json
