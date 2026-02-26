@@ -65,23 +65,17 @@ const initRoutes = async () => {
           name: 'layout',
           component: 'layout/index',
           children: childMenus.value || [],
-          // Children: [
+          // children: [
           //   {
-          //     Path: '/partybuild/outstandingPartyMember',
-          //     Name: 'outstandingPartyMember',
-          //     Component: 'partybuild/outstandingPartyMember',
-          //     Meta: {
-          //       Title: '优秀党员',
-          //       Icon: 'material-symbols:group',
-          //     },
-          //   },
-          //   {
-          //     Path: '/partybuild/memberManage',
-          //     Name: 'memberManage',
-          //     Component: 'partybuild/memberManage',
-          //     Meta: {
-          //       Title: '党员管理',
-          //       Icon: 'material-symbols:groups',
+          //     path: '/ReportManagement',
+          //     name: 'ReportManagement',
+          //     component: 'ReportManagement',
+          //     meta: {
+          //       title: '报告管理',
+          //       extendProps: {
+          //         icon: 'https://origin.yxuer.com/9ceb7bf7b57e43ef92e1f29a80a4d721.png',
+          //         'icon-o': 'https://origin.yxuer.com/e17552362fe341dd9018041e9479ae19.png',
+          //       },
           //     },
           //   },
           // ],
