@@ -428,8 +428,9 @@ async function init() {
   // ============================= 复制基础文件 =============================
   // 读取模板目录中的所有文件
   const files = fs.readdirSync(templateDir)
-  // 过滤掉 package.json（后面单独处理），复制其他所有文件
-  for (const file of files.filter((f) => f !== 'package.json')) {
+  // 过滤掉 package.json（后面单独处理）以及 .npmrc、.gitignore（由下方显式写入，因发布时可能被排除）
+  const skipFiles = ['package.json', '.npmrc', '.gitignore']
+  for (const file of files.filter((f) => !skipFiles.includes(f))) {
     write(file)
   }
 
@@ -440,6 +441,55 @@ async function init() {
     ? fs.readFileSync(npmrcPath, 'utf-8')
     : 'engine-strict=true\n'
   fs.writeFileSync(path.join(root, '.npmrc'), npmrcContent)
+
+  // ============================= 写入 .gitignore =============================
+  // npm 发布时可能排除 .gitignore 或 dot 文件，故在脚手架中显式写入
+  const gitignorePath = path.join(templateDir, '.gitignore')
+  const defaultGitignore = `# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+.DS_Store
+dist
+dist-ssr
+coverage
+
+# Editor directories and files
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/vue3.2.code-snippets
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+*.tsbuildinfo
+
+.eslintcache
+
+# Cypress
+/cypress/videos/
+/cypress/screenshots/
+
+# Vitest
+__screenshots__/
+
+# Vite
+*.timestamp-*-*.mjs
+`
+  const gitignoreContent = fs.existsSync(gitignorePath)
+    ? fs.readFileSync(gitignorePath, 'utf-8')
+    : defaultGitignore
+  fs.writeFileSync(path.join(root, '.gitignore'), gitignoreContent)
 
   // ============================= 处理 package.json =============================
   try {
