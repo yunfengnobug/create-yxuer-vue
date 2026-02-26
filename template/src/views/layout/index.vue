@@ -57,7 +57,9 @@ function processMenuItems(routes: any[]): MenuItem[] {
 const menuItems = computed(() => {
   const routes = router.getRoutes()
   const layoutRoute = routes.find((r) => r.name === 'layout')
-  if (!layoutRoute?.children) return []
+  if (!layoutRoute?.children) {
+    return []
+  }
   return processMenuItems(layoutRoute.children)
 })
 
@@ -92,7 +94,8 @@ const showIcon = (item: MenuItem) => {
       class="menu-sider"
       :collapsedWidth="64"
       v-model:collapsed="collapsed"
-      collapsible>
+      collapsible
+    >
       <div class="logo" @click="backHome">
         <HomeOutlined />
         <span :class="{ 'collapsed-text': collapsed }" style="margin-left: 8px; color: white"
@@ -103,7 +106,8 @@ const showIcon = (item: MenuItem) => {
         v-model:selectedKeys="selectedKeys"
         theme="dark"
         mode="inline"
-        @click="handleMenuClick">
+        @click="handleMenuClick"
+      >
         <template v-for="item in menuItems" :key="item.key">
           <!-- 有子菜单的情况 -->
           <a-sub-menu v-if="item.children && item.children.length > 0" :key="`sub-${item.key}`">

@@ -14,9 +14,8 @@ const getFileExtension = (fileName: string): string => {
 }
 
 // 获取上传凭证
-export const getUploadToken = (suffix: string) => {
-  return request.get(`/cloud/common/file/getToken?bucketType=0&fileType=${suffix}`)
-}
+export const getUploadToken = (suffix: string) =>
+  request.get(`/cloud/common/file/getToken?bucketType=0&fileType=${suffix}`)
 
 // 上传文件
 export const uploadFile = async (file: File, onProgress?: (progress: number) => void) => {
@@ -24,7 +23,7 @@ export const uploadFile = async (file: File, onProgress?: (progress: number) => 
   const suffix = getFileExtension(file.name)
   if (!suffix) {
     message.error('无法识别文件类型')
-    // return
+    // Return
   }
 
   const res: any = await getUploadToken(suffix)

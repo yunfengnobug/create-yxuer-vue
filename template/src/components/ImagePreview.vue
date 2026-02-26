@@ -87,7 +87,9 @@ const handleKeydown = (e: KeyboardEvent) => {
 
 // 监听鼠标滚轮缩放
 const handleWheel = (e: WheelEvent) => {
-  if (!props.visible) return
+  if (!props.visible) {
+    return
+  }
   e.preventDefault()
   if (e.deltaY < 0) {
     handleZoomIn()
@@ -156,7 +158,8 @@ onUnmounted(() => {
           :style="{
             transform: `scale(${scale}) rotate(${rotate}deg)`,
           }"
-          alt="预览图片" />
+          alt="预览图片"
+        />
       </div>
     </div>
   </Transition>

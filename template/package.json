@@ -2,7 +2,7 @@
   "name": "yxuer-pc-vue",
   "author": "王俊杰",
   "email": "1768669274@qq.com",
-  "version": "1.0.5",
+  "version": "1.0.8",
   "private": true,
   "type": "module",
   "scripts": {
@@ -14,8 +14,8 @@
     "build:tencentCloud": "npx only-allow pnpm && vite build --mode prodtencentCloud",
     "report:master": "npx only-allow pnpm && rimraf dist && cross-env ANALYZE=true vite build --mode prodmaster",
     "report:tencentCloud": "npx only-allow pnpm && rimraf dist && cross-env ANALYZE=true vite build --mode prodtencentCloud",
-    "format": "oxfmt src/",
-    "lint": "oxlint src/",
+    "format": "oxfmt --write src/",
+    "lint": "oxlint --fix src/",
     "prepare": "husky"
   },
   "dependencies": {
@@ -52,7 +52,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,vue,css,scss,json,jsonc}": [
-      "oxfmt --write src/",
+      "oxfmt src/",
       "oxlint src/"
     ]
   },

@@ -1,9 +1,8 @@
-import axios from 'axios'
-import type {
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosError,
-  InternalAxiosRequestConfig,
+import axios, {
+  type AxiosInstance,
+  type AxiosRequestConfig,
+  type AxiosError,
+  type InternalAxiosRequestConfig,
 } from 'axios'
 import { user, envMode } from '@/utils'
 import { message } from 'ant-design-vue'
@@ -73,7 +72,7 @@ service.interceptors.response.use(
           break
       }
 
-      // router.push('/login')
+      // Router.push('/login')
       return
     } else if (data.status === 1) {
       return data
@@ -92,7 +91,9 @@ service.interceptors.response.use(
 
 // 处理请求参数
 function handleRequestParams(params: any, type: RequestParamsType): AxiosRequestConfig {
-  if (!params) return {}
+  if (!params) {
+    return {}
+  }
 
   switch (type) {
     case 'query':

@@ -65,23 +65,23 @@ const initRoutes = async () => {
           name: 'layout',
           component: 'layout/index',
           children: childMenus.value || [],
-          // children: [
+          // Children: [
           //   {
-          //     path: '/partybuild/outstandingPartyMember',
-          //     name: 'outstandingPartyMember',
-          //     component: 'partybuild/outstandingPartyMember',
-          //     meta: {
-          //       title: '优秀党员',
-          //       icon: 'material-symbols:group',
+          //     Path: '/partybuild/outstandingPartyMember',
+          //     Name: 'outstandingPartyMember',
+          //     Component: 'partybuild/outstandingPartyMember',
+          //     Meta: {
+          //       Title: '优秀党员',
+          //       Icon: 'material-symbols:group',
           //     },
           //   },
           //   {
-          //     path: '/partybuild/memberManage',
-          //     name: 'memberManage',
-          //     component: 'partybuild/memberManage',
-          //     meta: {
-          //       title: '党员管理',
-          //       icon: 'material-symbols:groups',
+          //     Path: '/partybuild/memberManage',
+          //     Name: 'memberManage',
+          //     Component: 'partybuild/memberManage',
+          //     Meta: {
+          //       Title: '党员管理',
+          //       Icon: 'material-symbols:groups',
           //     },
           //   },
           // ],
@@ -105,15 +105,14 @@ await initRoutes()
 
 const router = createRouter({
   history:
-    import.meta.env.VITE_PATH_MODE === 'hash' ?
-      createWebHashHistory(import.meta.env.VITE_BASE_PATH)
-    : createWebHistory(import.meta.env.VITE_BASE_PATH),
+    import.meta.env.VITE_PATH_MODE === 'hash'
+      ? createWebHashHistory(import.meta.env.VITE_BASE_PATH)
+      : createWebHistory(import.meta.env.VITE_BASE_PATH),
   routes: routes.value as any,
 })
 router.beforeEach((to, from, next) => {
-  document.title =
-    (to.meta.title as string) ?
-      `${to.meta.title} | ${import.meta.env.VITE_PROJECT_NAME}`
+  document.title = (to.meta.title as string)
+    ? `${to.meta.title} | ${import.meta.env.VITE_PROJECT_NAME}`
     : import.meta.env.VITE_PROJECT_NAME
   next()
 })

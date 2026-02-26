@@ -15,7 +15,7 @@ import { uploadFile } from '@/utils/upload'
 import { AiEditor, type Uploader } from 'aieditor'
 import 'aieditor/dist/style.css'
 import { onMounted, onUnmounted, ref } from 'vue'
-const htmlContent = defineModel<string>('htmlContent', { default: '' }) // html 字符串
+const htmlContent = defineModel<string>('htmlContent', { default: '' }) // Html 字符串
 const editorRef = ref()
 const aiEditor = ref<AiEditor | null>(null)
 
@@ -59,7 +59,7 @@ onMounted(async () => {
             errorCode: 0,
             data: {
               src: res.result.url,
-              // poster: 'http://your-domain.com/poster.jpg',
+              // Poster: 'http://your-domain.com/poster.jpg',
               width: '100%',
               controls: 'true',
             },

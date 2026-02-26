@@ -8,10 +8,9 @@ export const findMyChildMenus = (data: {
   schoolCode: string // 学校编码
   menuId: string // 菜单ID
   extraFields?: string // 额外字段
-}) => {
-  return request.get(`${viteCloud}/base/menu/check/findMyChildMenus`, data, 'query', {
+}) =>
+  request.get(`${viteCloud}/base/menu/check/findMyChildMenus`, data, 'query', {
     headers: {
       appId: 'YXUER_HOME',
     },
   })
-}
