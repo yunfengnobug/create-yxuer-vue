@@ -1,0 +1,28 @@
+{
+  // 自动换行模式（在视区宽度和 #editor.wordWrapColumn# 中的较小值处折行。）
+  "editor.wordWrap": "bounded",
+  // 自动换行的列数
+  "editor.wordWrapColumn": 100,
+  // 文件嵌套
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "tsconfig.json": "tsconfig.*.json, env.d.ts",
+    "vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
+    "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .oxlint*, oxlint*, .oxfmt*, .prettier*, prettier*, .editorconfig"
+  },
+  // 显式保存时执行
+  "editor.codeActionsOnSave": {
+    // oxc 显式保存时执行修复
+    "source.fixAll.oxc": "always"
+  },
+  // oxc 类型感知
+  "oxc.typeAware": true,
+  // 保存时格式化
+  "editor.formatOnSave": true,
+  // 默认格式化器
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  // jsonc 默认格式化器
+  "[jsonc]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  }
+}

@@ -538,7 +538,7 @@ async function init() {
   console.log()
 
   // 显示文档链接
-  // console.log(`${blue('📚 文档：')} ${cyan('https://下一版再更新文档')}`)
+  console.log(`${blue('📚 开发规范：')} ${cyan('https://www.yuque.com/wang_junjie/front')}`)
   console.log()
   console.log(`${green('祝您开发愉快！')} 🎉`)
   console.log()

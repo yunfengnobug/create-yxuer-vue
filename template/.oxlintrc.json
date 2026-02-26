@@ -1,0 +1,23 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "oxc"],
+  "categories": {
+    "correctness": "warn",
+    "style": "error"
+  },
+  "rules": {
+    "sort-keys": "allow",
+    "sort-imports": "allow",
+    "no-magic-numbers": "allow",
+    "func-style": "allow",
+    "id-length": "allow",
+    "no-unused-vars": "error"
+  },
+
+  "env": {
+    "builtin": true,
+    "browser": true
+  },
+  "globals": {},
+  "ignorePatterns": []
+}

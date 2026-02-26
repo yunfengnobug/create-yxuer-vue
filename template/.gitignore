@@ -12,13 +12,12 @@ node_modules
 dist
 dist-ssr
 coverage
-*.local
 
 # Editor directories and files
 .vscode/*
-!.vscode/extensions.json
 !.vscode/settings.json
-!.vscode/*snippets
+!.vscode/extensions.json
+!.vscode/vue3.2.code-snippets
 .idea
 *.suo
 *.ntvs*
@@ -37,5 +36,5 @@ coverage
 # Vitest
 __screenshots__/
 
-# 使用 pnpm 安装依赖，版本锁定有 pnpm-lock.yaml 文件，package-lock.json 是 npm 安装的依赖锁定文件，所以忽略此文件
-package-lock.json
+# Vite
+*.timestamp-*-*.mjs
