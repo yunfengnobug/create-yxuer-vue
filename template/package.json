@@ -1,9 +1,8 @@
 {
   "name": "yxuer-pc-vue",
-  "author": "王俊杰",
-  "email": "1768669274@qq.com",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "private": true,
+  "author": "王俊杰 <1768669274@qq.com>",
   "type": "module",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
@@ -62,5 +61,6 @@
     "pnpm": ">=10",
     "yarn": "please-use-pnpm"
   },
-  "packageManager": "pnpm@10.30.2"
+  "packageManager": "pnpm@10.30.2",
+  "email": "1768669274@qq.com"
 }
