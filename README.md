@@ -142,9 +142,6 @@ pnpm report:tencentCloud
 ### 其他命令
 
 ```bash
-# 类型检查
-pnpm type-check
-
 # 代码检查和修复
 pnpm lint
 
@@ -156,6 +153,12 @@ pnpm format
 
 ```
 my-vue-app/
+├── .husky/             # Git hooks
+│   └── pre-commit      # 提交前运行 lint-staged
+├── .vscode/            # VSCode 配置
+│   ├── extensions.json         # 推荐扩展
+│   ├── settings.json           # 编辑器设置
+│   └── vue3.2.code-snippets    # Vue3 代码片段
 ├── build/              # 构建工具
 │   └── utils.ts        # Vite 配置工具函数
 ├── public/             # 静态资源
@@ -191,10 +194,16 @@ my-vue-app/
 ├── .env.devtencentCloud        # 腾讯云开发环境变量
 ├── .env.prodmaster     # 生产环境变量（测试服）
 ├── .env.prodtencentCloud       # 生产环境变量（腾讯云）
-├── eslint.config.ts    # ESLint 配置
+├── .gitattributes      # Git 换行符配置
+├── .npmrc              # npm 配置（engine-strict）
+├── .oxfmtrc.json       # oxfmt 格式化配置
+├── .oxlintrc.json      # oxlint 代码检查配置
+├── env.d.ts            # Vite 客户端类型声明
 ├── index.html          # HTML 模板
 ├── package.json
-├── tsconfig.json       # TypeScript 配置
+├── tsconfig.json       # TypeScript 项目引用配置
+├── tsconfig.app.json   # 应用 TypeScript 配置
+├── tsconfig.node.json  # Node/Vite TypeScript 配置
 └── vite.config.ts      # Vite 配置
 ```
 
@@ -212,6 +221,7 @@ my-vue-app/
 ### 网络请求
 
 已封装 Axios，包含：
+
 - 请求/响应拦截器
 - 错误统一处理
 - 自动 Token 处理
@@ -238,8 +248,8 @@ my-vue-app/
 ### 代码规范
 
 - **提交前自动检查** - Husky + lint-staged
-- **自动格式化** - Prettier
-- **代码质量检查** - ESLint
+- **自动格式化** - oxfmt
+- **代码质量检查** - oxlint
 
 ## ⚙️ 配置说明
 
@@ -262,7 +272,7 @@ my-vue-app/
 
 ## 📄 许可证
 
-MIT License © 2024 王俊杰
+[The MIT License (MIT)](https://mit-license.org/) © 2026 王俊杰
 
 ## 💡 常见问题
 
@@ -273,6 +283,7 @@ A: 在对应的 `.env.*` 文件中添加 `VITE_PORT=端口号`，或在 `vite.co
 ### Q: 如何添加新的环境？
 
 A:
+
 1. 创建新的 `.env.环境名` 文件
 2. 在 `package.json` 中添加对应的 scripts
 3. 在 `vite.config.ts` 中添加对应的代理配置（如需要）
@@ -289,7 +300,7 @@ A: 参考 [Ant Design Vue 定制主题](https://antdv.com/docs/vue/customize-the
 
 - 作者：王俊杰
 - 邮箱：1768669274@qq.com
-- GitHub: [https://github.com/your-username/create-yxuer-vue](https://github.com/your-username/create-yxuer-vue)
+- GitHub: [https://github.com/yunfengnobug/create-yxuer-vue](https://github.com/yunfengnobug/create-yxuer-vue)
 
 ---
 
