@@ -2,24 +2,31 @@
   "name": "create-yxuer-vue",
   "version": "1.0.14",
   "description": "基于 Vue3 + TypeScript + Vite + Ant Design Vue 的企业级前端脚手架工具",
-  "type": "module",
-  "author": "王俊杰 <1768669274@qq.com>",
-  "license": "MIT",
   "keywords": [
-    "vue3",
-    "vue",
-    "typescript",
-    "vite",
     "ant-design-vue",
-    "scaffold",
-    "template",
+    "boilerplate",
     "cli",
     "create-app",
+    "scaffold",
     "starter",
-    "boilerplate",
+    "template",
+    "typescript",
+    "vite",
+    "vue",
+    "vue3",
     "企业级",
     "前端框架"
   ],
+  "homepage": "https://github.com/yunfengnobug/create-yxuer-vue#readme",
+  "bugs": {
+    "url": "https://github.com/yunfengnobug/create-yxuer-vue/issues"
+  },
+  "license": "MIT",
+  "author": "王俊杰 <1768669274@qq.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yunfengnobug/create-yxuer-vue.git"
+  },
   "bin": {
     "create-yxuer-vue": "bin/index.js"
   },
@@ -28,9 +35,7 @@
     "src",
     "template"
   ],
-  "engines": {
-    "node": "^20.19.0 || >=22.12.0"
-  },
+  "type": "module",
   "scripts": {
     "dev": "node bin/index.js",
     "build": "echo 'No build step required'",
@@ -38,20 +43,15 @@
     "prepublishOnly": "echo '准备发布到 npm...'"
   },
   "dependencies": {
-    "prompts": "^2.4.2",
     "kolorist": "^1.8.0",
-    "minimist": "^1.2.8"
+    "minimist": "^1.2.8",
+    "prompts": "^2.4.2"
   },
   "devDependencies": {
     "@types/minimist": "^1.2.5",
     "@types/prompts": "^2.4.9"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/your-username/create-yxuer-vue.git"
-  },
-  "bugs": {
-    "url": "https://github.com/your-username/create-yxuer-vue/issues"
-  },
-  "homepage": "https://github.com/your-username/create-yxuer-vue#readme"
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  }
 }
