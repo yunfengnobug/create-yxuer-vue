@@ -1,0 +1,25 @@
+---
+description: CSS/SCSS 样式编写规范
+globs: "**/*.vue, **/*.scss, **/*.css"
+alwaysApply: false
+---
+
+# 样式规范
+
+## 预处理器
+
+使用 SCSS（`sass-embedded`），在 Vue SFC 中始终加 `scoped`。
+
+## 深度选择器
+
+穿透 Ant Design Vue 等子组件样式时，使用 `:deep()` 语法：
+
+```scss
+:deep(.ant-menu-item) {
+  color: white;
+}
+```
+
+## 动画
+
+过渡效果统一用 `transition: all 0.3s` 或 Vue `<Transition>` 组件。

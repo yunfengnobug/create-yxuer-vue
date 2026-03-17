@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import { envMode } from '@/utils'
 import { HomeOutlined } from '@ant-design/icons-vue'
 import { ref, computed, watch } from 'vue'

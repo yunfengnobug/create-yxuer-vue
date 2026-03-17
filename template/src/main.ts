@@ -4,9 +4,9 @@ import '@/utils/dayjs'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import Antd from 'ant-design-vue'
-import App from './App.vue'
+import App from '@/App.vue'
 import 'ant-design-vue/dist/reset.css'
-import router from './router'
+import router from '@/router'
 const app = createApp(App)
 
 app.use(createPinia())

@@ -1,0 +1,53 @@
+---
+description: API 接口层编写规范
+globs: "src/api/**/*.ts"
+alwaysApply: false
+---
+
+# API 规范
+
+## 文件组织
+
+按业务模块在 `src/api/` 下拆分文件，通用接口放 `index.ts`。
+
+## 函数定义
+
+- 使用 `export const` + 箭头函数
+- 用 JSDoc 注明接口用途和作者
+- 参数使用内联类型注解并加中文注释
+
+```typescript
+import request from '@/utils/request'
+const viteCloud = import.meta.env.VITE_CLOUD
+
+/** 获取权限子菜单的请求参数 */
+interface FindMyChildMenusParams {
+  /** 学校编码 */
+  schoolCode: string
+  /** 菜单ID */
+  menuId: string
+  /** 额外返回字段，多个用逗号分隔（如 icon,path,component） */
+  extraFields?: string
+  /** 状态：0-禁用 1-启用 */
+  status?: number
+}
+
+/**
+ * 获取权限子菜单 @author 张三
+ */
+export const findMyChildMenus = (data: FindMyChildMenusParams) =>
+  request.get(`${viteCloud}/base/menu/check/findMyChildMenus`, data, 'query')
+```
+
+## Request 工具
+
+统一使用 `@/utils/request` 提供的 `request` 对象，支持 `get` / `post` / `put` / `delete`。
+
+第三个参数 `paramsType` 控制传参方式：
+- `'query'` — URL 查询参数（GET 默认）
+- `'body'` — 请求体（POST 默认）
+- 默认时如果可省略，则省略
+
+## 错误处理
+
+响应拦截器已统一处理 toast 提示和会话过期跳转，API 函数一般不需要额外处理错误。调用方按需 `try/catch`。

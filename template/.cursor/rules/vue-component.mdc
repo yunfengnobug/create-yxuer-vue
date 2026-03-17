@@ -1,0 +1,66 @@
+---
+description: Vue SFC 组件编写规范
+globs: "**/*.vue"
+alwaysApply: false
+---
+
+# Vue 组件规范
+
+## SFC 块顺序
+
+`<script>` → `<template>` → `<style>`
+
+## Script
+
+- 始终使用 `<script setup lang="ts">`
+- 如果是封装的可复用组件，在组件头部用 JSDoc 注释说明使用方式
+
+```vue
+<script setup lang="ts">
+/**
+ * 使用方式：
+ *   <ImagePreview v-model:visible="previewVisible" :image-url="url" />
+ */
+</script>
+```
+
+## Props & Emits
+
+- 使用 TypeScript 接口定义 Props 类型，配合 `withDefaults` 设置默认值
+- Emits 使用类型化声明
+
+```typescript
+interface Props {
+  visible: boolean
+  imageUrl: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  visible: false,
+  imageUrl: '',
+})
+
+const emit = defineEmits<{
+  'update:visible': [value: boolean]
+  close: []
+}>()
+```
+
+## v-model
+
+在需要子组件修改父组件的值时，如果当前vue版本支持使用 `defineModel` 实现双向绑定，则优先使用`defineModel` 实现双向绑定，不使用 `$emit`事件方式：
+
+```typescript
+const htmlContent = defineModel<string>('htmlContent', { default: '' })
+```
+
+## 响应式
+
+- 基础类型用 `ref`
+- 对象/数组类型用 `ref` 或 `reactive`（优先 `ref` 保持一致性）
+- 派生数据用 `computed`
+
+## 样式
+
+- 使用 `<style lang="scss" scoped>`
+- 深度选择器用 `:deep()`

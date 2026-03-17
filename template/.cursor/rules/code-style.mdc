@@ -1,0 +1,24 @@
+---
+description: 基于 oxc 配置的代码风格规范
+globs: "**/*.ts, **/*.vue"
+alwaysApply: false
+---
+
+# 代码风格规范
+
+本项目使用 oxc（oxlint + oxfmt）进行代码检查和格式化，不使用 ESLint 和 Prettier。
+
+## 格式化（oxfmt）
+
+- 不使用分号
+- 使用单引号
+
+```typescript
+// BAD
+import { ref } from "vue";
+const count = ref(0);
+
+// GOOD
+import { ref } from 'vue'
+const count = ref(0)
+```
