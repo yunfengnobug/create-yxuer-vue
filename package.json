@@ -40,7 +40,9 @@
     "dev": "node bin/index.js",
     "build": "echo 'No build step required'",
     "test": "node bin/index.js test-project",
-    "prepublishOnly": "echo '准备发布到 npm...'"
+    "prepublishOnly": "echo '准备发布到 npm...'",
+    "format": "oxfmt --write template/src/",
+    "lint": "oxlint --fix template/src/"
   },
   "dependencies": {
     "kolorist": "^1.8.0",
@@ -49,7 +51,9 @@
   },
   "devDependencies": {
     "@types/minimist": "^1.2.5",
-    "@types/prompts": "^2.4.9"
+    "@types/prompts": "^2.4.9",
+    "oxfmt": "^0.45.0",
+    "oxlint": "^1.60.0"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

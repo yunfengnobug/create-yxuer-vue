@@ -1,0 +1,31 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": [
+    "typescript",
+    "oxc"
+  ],
+  "categories": {
+    "correctness": "warn",
+    "style": "error"
+  },
+  "rules": {
+    "sort-keys": "off",
+    "sort-imports": "off",
+    "no-magic-numbers": "off",
+    "func-style": "off", // 关闭函数风格限制
+    "id-length": "off", // 关闭变量名长度限制
+    "no-unused-vars": "error",
+    "max-statements": "off", // 关闭函数不能超过指定行数
+    "capitalized-comments": "off", // 关闭注释首字母必须大写
+    "no-ternary": "off", // 关闭禁止使用三元运算符
+    "prefer-destructuring": "off", // 关闭强制使用解构赋值
+    "max-params": "off", // 关闭函数参数不能超过指定数量
+    "no-nested-ternary": "off" // 关闭禁止使用嵌套的三元运算符
+  },
+  "env": {
+    "builtin": true,
+    "browser": true
+  },
+  "globals": {},
+  "ignorePatterns": []
+}
