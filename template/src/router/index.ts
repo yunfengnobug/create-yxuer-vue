@@ -2,13 +2,17 @@ import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router
 import { findMyChildMenus } from '@/api'
 import { ref, type Component } from 'vue'
 import { user } from '@/utils'
+import { updateAuthButKeys } from '@/directives/auth'
+import { useMenuStore } from '@/stores/menu'
+import pinia from '@/stores'
+
+const menuStore = useMenuStore(pinia)
+
+const MENU_ID_KEY = `${import.meta.env.VITE_APPID}_menuId`
 
 const currentMenuId = ref<string>('')
 
 const routes = ref<any[]>([])
-const childMenus = ref<any[]>(
-  JSON.parse(localStorage.getItem(`${import.meta.env.VITE_APPID}_childMenus`) || '[]'),
-)
 // 使用 import.meta.glob 预加载所有 vue 组件
 const modules = import.meta.glob<{ default: Component }>('@/views/**/*.vue')
 // 生成动态导入函数
@@ -23,6 +27,16 @@ function dynamicImport(path: string) {
   }
   return () => Promise.reject(new Error(`模块 ${fullPath} 未找到`))
 }
+// 递归过滤出menuType!==3的路由，排除按钮等非路由项
+const filterMenuRoutes = (menus: any[]): any[] =>
+  menus
+    .filter((item: any) => item.meta?.menuType !== 3)
+    .map((item: any) => {
+      if (item.children?.length > 0) {
+        return { ...item, children: filterMenuRoutes(item.children) }
+      }
+      return item
+    })
 // 递归处理component为动态导入函数
 const generateRoutes = (data: any, callback: any) => {
   data.forEach((item: any) => {
@@ -44,19 +58,18 @@ const initRoutes = async () => {
       const urlParams = new URLSearchParams(queryString)
       currentMenuId.value = urlParams.get('menuId') || ''
     }
-    // 如果 有菜单ID，则重新获取子菜单并更新缓存
+    if (currentMenuId.value) {
+      localStorage.setItem(MENU_ID_KEY, currentMenuId.value)
+    } else {
+      currentMenuId.value = localStorage.getItem(MENU_ID_KEY) || ''
+    }
     if (currentMenuId.value) {
       const res = await findMyChildMenus({
         schoolCode: user.schoolCode,
         menuId: currentMenuId.value,
-        extraFields: 'icon,path,component,name,extendProps',
+        extraFields: 'icon,path,component,name,extendProps,butKey',
       })
-      childMenus.value = res.result.myMenus || []
-      // 缓存子菜单
-      localStorage.setItem(
-        `${import.meta.env.VITE_APPID}_childMenus`,
-        JSON.stringify(childMenus.value),
-      )
+      menuStore.setChildMenus(res.result.myMenus || [])
     }
     routes.value = generateRoutes(
       [
@@ -64,7 +77,7 @@ const initRoutes = async () => {
           path: '/',
           name: 'layout',
           component: 'layout/index',
-          children: childMenus.value || [],
+          children: filterMenuRoutes(menuStore.childMenus || []),
           // children: [
           //   {
           //     path: '/ReportManagement',
@@ -89,7 +102,7 @@ const initRoutes = async () => {
       ],
       dynamicImport,
     )
-    console.log(routes.value, '===============')
+    console.log(routes.value)
   } catch (error) {
     console.log(error)
   }
@@ -108,6 +121,7 @@ router.beforeEach((to, from, next) => {
   document.title = (to.meta.title as string)
     ? `${to.meta.title} | ${import.meta.env.VITE_PROJECT_NAME}`
     : import.meta.env.VITE_PROJECT_NAME
+  updateAuthButKeys(to.path, menuStore.childMenus)
   next()
 })
 
