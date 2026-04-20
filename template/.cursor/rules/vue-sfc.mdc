@@ -1,0 +1,66 @@
+---
+description: Vue 3 SFC 组件结构、Composition API 模式与 SCSS scoped 样式
+globs: "**/*.vue"
+alwaysApply: false
+---
+
+# Vue SFC 组件规范
+
+## 块顺序
+
+`<script>` → `<template>` → `<style>`
+
+## Script Setup
+
+始终使用 `<script setup lang="ts">`。封装可复用组件时，在顶部添加使用说明注释：
+
+```vue
+<script setup lang="ts">
+/**
+ * <ImagePreview v-model:visible="previewVisible" :image-url="url" />
+ */
+</script>
+```
+
+## Props 与 Emits
+
+使用 TypeScript 接口定义 Props，配合 `withDefaults` 设置默认值；Emits 使用类型化声明：
+
+```typescript
+interface Props {
+  visible: boolean
+  imageUrl: string
+}
+const props = withDefaults(defineProps<Props>(), {
+  visible: false,
+  imageUrl: '',
+})
+const emit = defineEmits<{
+  'update:visible': [value: boolean]
+  close: []
+}>()
+```
+
+## v-model
+
+当 Vue 版本支持时，优先使用 `defineModel` 实现双向绑定：
+
+```typescript
+const htmlContent = defineModel<string>('htmlContent', { default: '' })
+```
+
+## 响应式
+
+- 基础类型 → `ref`
+- 对象 / 数组 → 优先 `ref` 保持一致性（也可用 `reactive`）
+- 派生数据 → `computed`
+
+## 样式
+
+使用 `<style lang="scss" scoped>`。穿透子组件样式使用 `:deep()`：
+
+```scss
+:deep(.ant-menu-item) {
+  color: white;
+}
+```

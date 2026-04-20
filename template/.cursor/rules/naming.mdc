@@ -1,0 +1,48 @@
+---
+description: 目录、文件、代码标识符与 API 函数的命名规范
+alwaysApply: true
+---
+
+# 命名规范
+
+## 目录
+
+全小写，有复数结构时用复数：`docs`、`assets`、`components`、`directives`、`utils`、`views`
+
+## 文件
+
+| 类型 | 规则 | 示例 |
+|---|---|---|
+| Vue 文件 | 大驼峰 | `UserManage.vue`、`BaseTitle.vue` |
+| TS / JS 文件 | 短横线分隔 | `request.ts`、`day-js.ts` |
+| 图像文件 | 下划线分隔 | `avatar.png`、`default_avatar.png` |
+
+## 代码标识符
+
+| 类型 | 规则 | 示例 |
+|---|---|---|
+| 常量 | 全大写下划线 | `PI`、`MAX_PAGE_SIZE` |
+| 变量 | 小驼峰 | `userList`、`currentMenuId` |
+| 方法 | 小驼峰，动宾结构 | `getTableList`、`handleSubmit` |
+| 类 | 大驼峰 | `class Calculator` |
+| 样式类名 | 短横线分隔 | `user-list`、`user-item` |
+
+## API 与页面方法命名区分
+
+- `src/api/` 中：用 `find` 前缀 → `findUserList`、`findOrderDetail`
+- `.vue` 页面中：用 `get` 前缀 → `getUserList`、`getOrderDetail`
+
+```typescript
+// src/api/user.ts
+export const findUserList = (data: FindUserListParams) =>
+  request.get('/user/list', data)
+
+// src/views/UserManage.vue
+import { findUserList } from '@/api/user'
+
+const userList = ref([])
+const getUserList = async () => {
+  const res = await findUserList({ page: 1 })
+  userList.value = res.result.list
+}
+```

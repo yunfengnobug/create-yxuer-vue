@@ -1,0 +1,58 @@
+---
+description: 技术栈、工具链、目录结构与项目级约定
+alwaysApply: true
+---
+
+# 项目规范
+
+## 技术栈
+
+Vue 3 + TypeScript + Vite + Ant Design Vue + Pinia + Vue Router + Axios
+
+## 工具链
+
+- 包管理器：仅使用 **pnpm**，禁止 npm / yarn
+- 代码检查与格式化：使用 **oxc**（oxlint + oxfmt），不使用 ESLint / Prettier
+- 格式化规则：不加分号、使用单引号
+
+```typescript
+// ❌
+import { ref } from "vue";
+const count = ref(0);
+
+// ✅
+import { ref } from 'vue'
+const count = ref(0)
+```
+
+## 路径别名
+
+`@` 指向 `src/` 目录：
+
+```typescript
+// ❌ import { user } from '../../utils'
+// ✅ import { user } from '@/utils'
+```
+
+## 目录职责
+
+| 目录 | 职责 |
+|---|---|
+| `src/api/` | 接口请求函数，按业务模块拆分文件 |
+| `src/utils/` | 工具函数（request、upload、download、dayjs 等） |
+| `src/views/` | 页面级组件，按路由对应目录 |
+| `src/components/` | 跨页面复用的通用组件 |
+| `src/stores/` | Pinia Store，使用 Composition API 风格 |
+| `src/router/` | 路由配置与动态路由逻辑 |
+| `src/assets/` | 静态资源（样式、图片等） |
+| `build/` | Vite 构建辅助脚本 |
+
+## 环境变量
+
+- 自定义变量以 `VITE_` 开头，通过 `import.meta.env.VITE_XXX` 访问
+- `.env` 放通用配置，`.env.[mode]` 放环境差异配置
+
+## 语言策略
+
+- 变量名、函数名：使用**英文**
+- UI 文案、注释、提示信息：使用**简体中文**
