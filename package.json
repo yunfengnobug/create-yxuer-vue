@@ -41,8 +41,8 @@
     "build": "echo 'No build step required'",
     "test": "node bin/index.js test-project",
     "prepublishOnly": "echo '准备发布到 npm...'",
-    "format": "oxfmt --write template/src/",
-    "lint": "oxlint --fix template/src/"
+    "format": "oxfmt --write template/",
+    "lint": "oxlint --fix template/"
   },
   "dependencies": {
     "kolorist": "^1.8.0",

@@ -9,8 +9,8 @@
       "\t$1",
       "</template>\n",
       "<style lang='scss' scoped>\n",
-      "</style>"
+      "</style>",
     ],
-    "description": "Vue3快速生成模板"
-  }
+    "description": "Vue3快速生成模板",
+  },
 }
