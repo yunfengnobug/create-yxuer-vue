@@ -20,7 +20,8 @@
     "no-ternary": "off", // 关闭禁止使用三元运算符
     "prefer-destructuring": "off", // 关闭强制使用解构赋值
     "max-params": "off", // 关闭函数参数不能超过指定数量
-    "no-nested-ternary": "off" // 关闭禁止使用嵌套的三元运算符
+    "no-nested-ternary": "off", // 关闭禁止使用嵌套的三元运算符
+    "init-declarations": "off" // 关闭变量声明必须初始化
   },
   "env": {
     "builtin": true,
