@@ -1,11 +1,14 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { envMode } from '@/utils'
 import { HomeOutlined } from '@ant-design/icons-vue'
 import { ref, computed, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { useMenuStore } from '@/stores/menu'
 
 const router = useRouter()
 const route = useRoute()
+const menuStore = useMenuStore()
+
 const collapsed = ref<boolean>(true)
 const selectedKeys = ref<string[]>([route.path])
 
@@ -30,7 +33,7 @@ interface MenuItem {
 // 递归处理菜单数据
 function processMenuItems(routes: any[]): MenuItem[] {
   return routes
-    .filter((child) => child.meta?.title) // 只显示有标题的路由
+    .filter((child) => child.meta?.title && child.meta?.showLink === true)
     .map((child) => {
       const menuItem: MenuItem = {
         key: child.path,
@@ -91,6 +94,7 @@ const showIcon = (item: MenuItem) => {
 <template>
   <a-layout style="height: 100vh">
     <a-layout-sider
+      v-if="menuStore.siderVisible"
       class="menu-sider"
       :collapsedWidth="64"
       v-model:collapsed="collapsed"
@@ -161,11 +165,14 @@ const showIcon = (item: MenuItem) => {
 .menu-sider {
   overflow-y: auto;
   /* 隐藏滚动条 */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE 10+ */
 
   &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
+    display: none;
+    /* Chrome, Safari, Opera */
   }
 
   // 菜单收起时的样式
@@ -202,6 +209,10 @@ const showIcon = (item: MenuItem) => {
         height: 1px;
         background-color: #434343;
       }
+    }
+
+    :deep(.ant-menu) {
+      padding-bottom: 48px;
     }
 
     // 菜单项样式
@@ -309,6 +320,7 @@ const showIcon = (item: MenuItem) => {
     }
   }
 }
+
 .menu-icon {
   width: 24px;
   height: 24px;

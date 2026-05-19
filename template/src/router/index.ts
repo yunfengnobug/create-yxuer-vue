@@ -67,7 +67,7 @@ const initRoutes = async () => {
       const res = await findMyChildMenus({
         schoolCode: user.schoolCode,
         menuId: currentMenuId.value,
-        extraFields: 'icon,path,component,name,extendProps,butKey',
+        extraFields: 'icon,path,component,name,extendProps,butKey,showLink',
       })
       menuStore.setChildMenus(res.result.myMenus || [])
     }
