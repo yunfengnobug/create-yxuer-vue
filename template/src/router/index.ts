@@ -1,16 +1,16 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
-import { findMyChildMenus } from '@/api'
+import { findMyChildMenus, findUserInfo } from '@/api'
 import { ref, type Component } from 'vue'
-import { user } from '@/utils'
 import { updateAuthButKeys } from '@/directives/auth'
+import { message } from 'ant-design-vue'
 import { useMenuStore } from '@/stores/menu'
+import { useUserStore } from '@/stores/user'
 import pinia from '@/stores'
 
 const menuStore = useMenuStore(pinia)
+const userStore = useUserStore(pinia)
 
 const MENU_ID_KEY = `${import.meta.env.VITE_APPID}_menuId`
-
-const currentMenuId = ref<string>('')
 
 const routes = ref<any[]>([])
 // 使用 import.meta.glob 预加载所有 vue 组件
@@ -56,21 +56,33 @@ const initRoutes = async () => {
     if (location.hash.includes('?')) {
       const queryString = location.hash.split('?')[1]
       const urlParams = new URLSearchParams(queryString)
-      currentMenuId.value = urlParams.get('menuId') || ''
+      // 从url中获取menuId和userKey
+      const userKey = urlParams.get('userKey') || ''
+      const menuId = urlParams.get('menuId') || ''
+
+      // 首次进入时url带有userKey和menuId：userKey 存入 store 的 user 对象（持久化），menuId 直接放缓存
+      if (userKey) {
+        userStore.user.userKey = userKey
+      }
+      if (menuId) {
+        localStorage.setItem(MENU_ID_KEY, menuId)
+      }
     }
-    if (currentMenuId.value) {
-      localStorage.setItem(MENU_ID_KEY, currentMenuId.value)
-    } else {
-      currentMenuId.value = localStorage.getItem(MENU_ID_KEY) || ''
+    // 刷新后url可能不带参数，分别从 store 持久化和缓存中获取
+    const menuId = localStorage.getItem(MENU_ID_KEY) || ''
+    if (!userStore.user.userKey || !menuId) {
+      message.error('本地开发环境：缺少 userKey 或 menuId 参数')
     }
-    if (currentMenuId.value) {
-      const res = await findMyChildMenus({
-        schoolCode: user.schoolCode,
-        menuId: currentMenuId.value,
-        extraFields: 'icon,path,component,name,extendProps,butKey,showLink',
-      })
-      menuStore.setChildMenus(res.result.myMenus || [])
-    }
+    // 参数缺失时也照常调接口，用户可通过接口报错进一步定位原因
+    const res = await findUserInfo({ userKey: userStore.user.userKey })
+    // 用户信息整体覆盖（含 userKey 等字段）
+    userStore.setUser(res.result)
+    const res2 = await findMyChildMenus({
+      schoolCode: userStore.user.schoolCode,
+      menuId,
+      extraFields: 'icon,path,component,name,extendProps,butKey,showLink',
+    })
+    menuStore.setChildMenus(res2.result.myMenus || [])
     routes.value = generateRoutes(
       [
         {

@@ -4,8 +4,10 @@ import axios, {
   type AxiosError,
   type InternalAxiosRequestConfig,
 } from 'axios'
-import { user, envMode } from '@/utils'
+import { envMode } from '@/utils'
 import { message } from 'ant-design-vue'
+import { useUserStore } from '@/stores/user'
+import pinia from '@/stores'
 
 // 定义响应数据的接口
 interface ResponseData {
@@ -30,7 +32,8 @@ const service: AxiosInstance = axios.create({
 service.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     // 在发送请求之前做些什么
-    config.headers.token = user.userKey
+    const userStore = useUserStore(pinia)
+    config.headers.token = userStore.user.userKey
     return config
   },
   (error: AxiosError) => {
@@ -55,7 +58,7 @@ service.interceptors.response.use(
         case 'devtencentCloud':
           message.error('请查看控制台打印信息')
           console.log(
-            `%c当前为本地连接线上【${envMode}】环境，跨项目的 localStorage 无法共享，请在线上【${envMode}】环境登录后，将缓存中的 newUserInfo 复制到本地，然后刷新本页面`,
+            `%c当前为本地连接线上【${envMode}】环境，未登录，请在url上拼接上userKey和menuId参数`,
             'color: #04e8e8',
           )
           break

@@ -1,5 +1,12 @@
 import request from '@/utils/request'
 const viteCloud = import.meta.env.VITE_CLOUD
+const viteSchool = import.meta.env.VITE_SCHOOL
+
+/**
+ * 通过userKey获取个人信息
+ */
+export const findUserInfo = (data: { userKey: string }) =>
+  request.get(`${viteSchool}/newUser/findUserInfo`, data)
 
 /** 获取权限子菜单的请求参数 */
 interface FindMyChildMenusParams {
