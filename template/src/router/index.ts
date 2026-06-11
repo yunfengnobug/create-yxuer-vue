@@ -2,7 +2,6 @@ import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router
 import { findMyChildMenus, findUserInfo } from '@/api'
 import { ref, type Component } from 'vue'
 import { updateAuthButKeys } from '@/directives/auth'
-import { message } from 'ant-design-vue'
 import { useMenuStore } from '@/stores/menu'
 import { useUserStore } from '@/stores/user'
 import pinia from '@/stores'
@@ -70,32 +69,34 @@ const initRoutes = async () => {
     }
     // 刷新后url可能不带参数，分别从 store 持久化和缓存中获取
     const menuId = localStorage.getItem(MENU_ID_KEY) || ''
-    if (!userStore.user.userKey || !menuId) {
-      message.error('本地开发环境：缺少 userKey 或 menuId 参数')
+    // 如果 userKey 和 menuId 都存在，则调接口获取用户信息和权限菜单，否则不调接口，使用写死的路由
+    if (userStore.user.userKey && menuId) {
+      const res = await findUserInfo({ userKey: userStore.user.userKey })
+      // 用户信息整体覆盖（含 userKey、schoolCode 等字段）
+      userStore.setUser(res.result)
+      const res2 = await findMyChildMenus({
+        schoolCode: userStore.user.schoolCode,
+        menuId,
+        extraFields: 'icon,path,component,name,extendProps,butKey,showLink',
+      })
+      menuStore.setChildMenus(res2.result.myMenus || [])
     }
-    // 参数缺失时也照常调接口，用户可通过接口报错进一步定位原因
-    const res = await findUserInfo({ userKey: userStore.user.userKey })
-    // 用户信息整体覆盖（含 userKey 等字段）
-    userStore.setUser(res.result)
-    const res2 = await findMyChildMenus({
-      schoolCode: userStore.user.schoolCode,
-      menuId,
-      extraFields: 'icon,path,component,name,extendProps,butKey,showLink',
-    })
-    menuStore.setChildMenus(res2.result.myMenus || [])
     routes.value = generateRoutes(
       [
         {
           path: '/',
           name: 'layout',
           component: 'layout/index',
-          children: filterMenuRoutes(menuStore.childMenus || []),
+          children: filterMenuRoutes(menuStore.childMenus || []), // 根据用户的权限，调接口获取菜单路由
           // children: [
           //   {
           //     path: '/ReportManagement',
           //     name: 'ReportManagement',
-          //     component: 'ReportManagement',
+          //     component: 'ReportManagement', // src/views/目录下的文件路径，不带.vue后缀，如src/views/ReportManagement.vue
           //     meta: {
+          //       showLink: true, // 是否显示在左侧侧边栏中
+          //       menuType: 0, // 菜单类型，菜单=0，iframe=1，外链=2，按钮=3，目前仅支持0和3
+          //       butKey: '', // 按钮权限key，当前用户拥有的按钮权限key，使用v-auth对接
           //       title: '报告管理',
           //       extendProps: {
           //         icon: 'https://origin.yxuer.com/9ceb7bf7b57e43ef92e1f29a80a4d721.png',
